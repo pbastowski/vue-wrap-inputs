@@ -8,7 +8,6 @@ module.exports = {
                 options.transpileOptions = {
                     objectAssign: 'Object.assign'
                 }
-                console.log(options)
                 return options
             })
     }
