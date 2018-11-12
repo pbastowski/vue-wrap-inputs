@@ -18,6 +18,7 @@
         We could also (optionally) bind all $attrs and $listeners.
     -->
     <v-input
+        ref="input"
         Xv-bind="$attrs"
         Xv-on="$listeners"
         :value="value"
@@ -38,6 +39,11 @@
             @blur.native="log(123)"
             v-bind="$attrs"
             v-on="{ ...$listeners, input: e => $emit('input', e.target.value) }"
+            @blur="
+                $refs.input.hasFocused = true
+                $refs.input.isFocused = false
+            "
+            @focus="$refs.input.isFocused = true"
             :value="value"
         />
     </v-input>
