@@ -1,6 +1,6 @@
 <!--
     This example shows how to make a custom component validatable
-    as a whole, within the scope of Vuetify v-form's validation.
+    as a whole, within the scope of Vuetify's v-form validation.
 
     Our component, below, contains a form with fields. When any of the
     fields are not valid the whole form is also not valid. We want to
@@ -16,14 +16,12 @@
         ...
     </v-form>
 
-    So, the above variable `valid` will be false when the `data-import`
-    fields are not valid.
+    So, the above variable `valid` will be false when any of the fields
+    in `data-import` form are not valid.
 -->
 <template>
     <v-card>
-        <v-card-text
-            :class="{ 'pink lighten-5': !value && formHasErrors() }"
-        >
+        <v-card-text :class="{ 'pink lighten-5': !value && formHasErrors() }">
             <!--
                 We bind our form to it's consumer's attributes, listeners
                 and value (to support v-model). This will make our component
@@ -31,32 +29,36 @@
                 invalid as the validity of the form below changes.
             -->
             <v-form v-bind="$attrs" v-on="$listeners" :value="value" ref="form">
-
                 <v-layout column>
                     <v-text-field
                         label="Name"
                         v-model="data.name"
-                        :rules="[v=>!!v || 'Name required']"
+                        :rules="[v => !!v || 'Name required']"
                     />
 
                     <v-text-field
                         label="Surname"
                         v-model="data.surname"
-                        :rules="[v=>!!v || 'Surname required']"
+                        :rules="[v => !!v || 'Surname required']"
                     />
 
                     <v-text-field
                         label="Favorite colour"
                         v-model="data.favoriteColour"
-                        :rules="[v=>!!v || 'Surely, there must be a colour that you like?']"
+                        :rules="[
+                            v =>
+                                !!v ||
+                                'Surely, there must be a colour that you like?'
+                        ]"
                     />
 
                     <v-btn :disabled="!value" color="primary">OK</v-btn>
                 </v-layout>
-
             </v-form>
             <pre>formIsDirty: {{ formIsDirty() }}</pre>
             <pre>formHasErrors: {{ formHasErrors() }}</pre>
+            <pre>hasError: {{ hasError }}</pre>
+            <pre>isDirty: {{ isDirty }}</pre>
         </v-card-text>
     </v-card>
 </template>

@@ -1,17 +1,22 @@
 <template>
-
     <!--
         We wrap our custom input in v-input and bind it to it's consumer's
         $attrs, $listeners and value (to support v-model). This will
         make our wrapper component behave like a Vuetify input element
         and allow it to hook into Vuetify's v-form component validation.
+
+        Note: because we are wrapping a native element, we need to
+        modify the input listener, to emit the element value. Vuetify
+        input components emit their value as the event payload, whereas
+        native controls emit the event itself.
     -->
     <v-input
-        v-bind="$attrs"
-        v-on="$listeners"
+        Xv-bind="$attrs"
+        Xv-on="$listeners"
         :value="value"
+        :rules="rules"
+        :label="label"
     >
-
         <!--
             We also bind $attrs, $listeners and value to out input control,
             so it can be used like any other Vue control.
@@ -31,7 +36,6 @@
             "
         />
     </v-input>
-
 </template>
 
 <script>
@@ -51,9 +55,13 @@ export default {
     // functionality into our component.
     // extends: VInput,
 
+    components: { VInput },
+
     props: {
         // This is required to support v-model.
-        value: String
+        value: String,
+        label: String,
+        rules: Array
     }
 }
 </script>

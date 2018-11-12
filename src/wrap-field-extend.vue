@@ -1,26 +1,18 @@
 <template>
-
     <!--
-        We wrap our custom input in v-input and bind it to it's consumer's
-        $attrs, $listeners and value (to support v-model). This will
-        make our wrapper component behave like a Vuetify input element
-        and allow it to hook into Vuetify's v-form component validation.
-    -->
-    <v-input
-        v-bind="$attrs"
-        v-on="$listeners"
-        :value="value"
-    >
+        We bind $attrs, $listeners and value to our input control,
+        so it can be used like any other Vue control.
 
-        <!--
-            We also bind $attrs, $listeners and value to out input control,
-            so it can be used like any other Vue control.
-            However, because we are wrapping a native element, we need to
-            modify the input listener, to emit the correct value.
-        -->
+        Note: because we are wrapping a native element, we need to
+        modify the input listener, to emit the element value. Vuetify
+        input components emit their value as the event payload, whereas
+        native controls emit the event itself.
+    -->
+    <label>
+        {{ label }}
         <input
             class="ml-2"
-            @blur.native="log(123)"
+            :class="{ invalid: !valid }"
             v-bind="$attrs"
             v-on="{ ...$listeners, input: e => $emit('input', e.target.value) }"
             :value="value"
@@ -28,10 +20,16 @@
                 border: 1px solid silver;
                 background: yellow;
                 color: black;
+                margin-left: 6px;
             "
         />
-    </v-input>
-
+        <slot name="messages">
+            <span class="red--text" v-if="hasMessages">
+                {{ errorBucket[0] }}</span
+            >
+        </slot>
+        <!-- <pre>{{ $data }}</pre> -->
+    </label>
 </template>
 
 <script>
@@ -49,11 +47,16 @@ export default {
 
     // We extend the VInput component, thus adding all basic validation
     // functionality into our component.
-    // extends: VInput,
+    extends: VInput,
 
     props: {
         // This is required to support v-model.
-        value: String
+        value: String,
+        label: String
+    },
+
+    data() {
+        return {}
     }
 }
 </script>
