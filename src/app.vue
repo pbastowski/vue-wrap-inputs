@@ -34,14 +34,16 @@
                             </v-btn>
                         </v-flex>
 
-                        <v-flex xs-2>
-                            <pre>test valid: {{ testValid }}</pre>
-                            <pre>data-import valid: {{ wrapValid }}</pre>
-                            <pre>data: {{ wrapData }}</pre>
-                            <pre v-if="$refs.wrap">
-wrap: {{ $refs.wrap.hasError }}</pre
-                            >
-                        </v-flex>
+                        <!--
+                                                    <v-flex xs-2>
+                                                        <pre>test valid: {{ testValid }}</pre>
+                                                        <pre>data-import valid: {{ wrapValid }}</pre>
+                                                        <pre>data: {{ wrapData }}</pre>
+                                                        <pre v-if="$refs.wrap">
+                            wrap: {{ $refs.wrap.hasError }}</pre
+                                                        >
+                                                    </v-flex>
+                        -->
                     </v-layout>
                 </v-form>
             </v-container>
