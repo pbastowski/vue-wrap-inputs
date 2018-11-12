@@ -54,7 +54,9 @@ export default {
     // extends: VInput,
 
     props: {
-        // This is required to support v-model.
+        // We must declare the `value` from in order to support v-model,
+        // which does not automatically create the `value` prop for us
+        // nor add it to `$attrs`.
         value: String,
         label: String,
         rules: Array

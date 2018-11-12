@@ -53,7 +53,7 @@
 
 <script>
 import DataImport from './wrap-form.vue'
-import MyInput from './wrap-field-manual.vue'
+import MyInput from './wrap-input-vinput.vue'
 
 export default {
     name: 'my-feature',
