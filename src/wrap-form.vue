@@ -55,10 +55,12 @@
                     <v-btn :disabled="!value" color="primary">OK</v-btn>
                 </v-layout>
             </v-form>
-            <pre>formIsDirty: {{ formIsDirty() }}</pre>
-            <pre>formHasErrors: {{ formHasErrors() }}</pre>
-            <pre>hasError: {{ hasError }}</pre>
-            <pre>isDirty: {{ isDirty }}</pre>
+            <!--
+                <pre>formIsDirty: {{ formIsDirty() }}</pre>
+                <pre>formHasErrors: {{ formHasErrors() }}</pre>
+                <pre>hasError: {{ hasError }}</pre>
+                <pre>isDirty: {{ isDirty }}</pre>
+            -->
         </v-card-text>
     </v-card>
 </template>

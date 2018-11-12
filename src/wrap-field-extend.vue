@@ -5,7 +5,14 @@
 
 <template>
     <div>
-        <label class="mr-2 label" style="vertical-align: top;">
+        <label
+            class="mr-2 label"
+            style="vertical-align: top;"
+            :class="{
+                'red--text': hasFocused && hasError,
+                placeholder: !isFocused && value === ''
+            }"
+        >
             {{ label }}
         </label>
         <span style="display:inline-block;">
@@ -29,7 +36,11 @@
                     ...$listeners,
                     input: e => $emit('input', e.target.value)
                 }"
-                @blur="hasFocused = true"
+                @blur="
+                    hasFocused = true
+                    isFocused = false
+                "
+                @focus="isFocused = true"
                 :value="value"
             />
             <slot name="messages">
@@ -68,10 +79,16 @@ export default {
 }
 
 .label {
+    transition: all 0.25s;
     position: absolute;
     padding: 4px 6px;
     font-size: 12px;
     color: grey;
+}
+
+.placeholder {
+    font-size: 16px;
+    padding-top: 20px;
 }
 
 .input {
