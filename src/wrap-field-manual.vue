@@ -75,6 +75,7 @@ export default {
     outline: none;
     border: 1px solid silver;
     color: black;
+    padding: 3px 6px;
 }
 
 .invalid {

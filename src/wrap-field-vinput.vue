@@ -1,3 +1,8 @@
+<!--
+    Here we show how to use the v-input base component to add
+    Vuetify form validation to our custom input component.
+-->
+
 <template>
     <!--
         We wrap our custom input in v-input and bind it to it's consumer's
@@ -5,10 +10,12 @@
         make our wrapper component behave like a Vuetify input element
         and allow it to hook into Vuetify's v-form component validation.
 
-        Note: because we are wrapping a native element, we need to
-        modify the input listener, to emit the element value. Vuetify
-        input components emit their value as the event payload, whereas
-        native controls emit the event itself.
+        Note: the only attrs that need to be bound in v-input are:
+        - value, so that v-input can validate the value
+        - rules, so we have the rules used to validate the value
+        - label, if you want the standard v-input label
+
+        We could also (optionally) bind all $attrs and $listeners.
     -->
     <v-input
         Xv-bind="$attrs"
@@ -18,34 +25,25 @@
         :label="label"
     >
         <!--
-            We also bind $attrs, $listeners and value to out input control,
+            We bind $attrs, $listeners and value to our input control,
             so it can be used like any other Vue control.
-            However, because we are wrapping a native element, we need to
-            modify the input listener, to emit the correct value.
+
+            Note: because we are wrapping a native element, we need to
+            modify the input listener to emit the element value. Vuetify
+            input components emit their value as the event payload,
+            whereas native controls emit the raw event itself.
         -->
         <input
-            class="ml-2"
+            class="ml-2 input"
             @blur.native="log(123)"
             v-bind="$attrs"
             v-on="{ ...$listeners, input: e => $emit('input', e.target.value) }"
             :value="value"
-            style="
-                border: 1px solid silver;
-                background: yellow;
-                color: black;
-            "
         />
     </v-input>
 </template>
 
 <script>
-// We import the VInput component, so we can use it to extend our
-// component with it's behaviours, specifically hooking into
-// Vuetify form validation and error messages that appear below
-// the input. So, in this case we wrap our component in VInput,
-// because we do want to reuse it's layout for error messages.
-import VInput from 'vuetify/es5/components/VInput'
-
 export default {
     // You must give your component a name, otherwise, it will appear
     // as "VInput" in the Vue Dev tools hierarchy.
@@ -55,8 +53,6 @@ export default {
     // functionality into our component.
     // extends: VInput,
 
-    components: { VInput },
-
     props: {
         // This is required to support v-model.
         value: String,
@@ -65,3 +61,16 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.input {
+    outline: none;
+    border: 1px solid silver;
+    color: black;
+    padding: 3px 6px;
+}
+
+.invalid {
+    border-color: red;
+}
+</style>

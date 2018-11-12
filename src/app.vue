@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-content>
-            <v-container fluid grid-list-lg>
+            <v-container Xfluid grid-list-lg>
                 <v-form v-model="testValid" style="width: 300px;">
                     <v-layout column>
                         <v-flex>
@@ -51,7 +51,7 @@ wrap: {{ $refs.wrap.hasError }}</pre
 
 <script>
 import DataImport from './wrap-form.vue'
-import MyInput from './wrap-field-vinput.vue'
+import MyInput from './wrap-field-extend.vue'
 
 export default {
     name: 'my-feature',
