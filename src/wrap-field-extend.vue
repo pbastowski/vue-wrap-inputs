@@ -13,23 +13,29 @@
                 We bind $attrs, $listeners and value to our input control,
                 so it can be used like any other Vue control.
 
-                Note: because we are wrapping a native element, we need to
+                Note 1: because we are wrapping a native element, we need to
                 modify the input listener, to emit the element value. Vuetify
                 input components emit their value as the event payload, whereas
                 native controls emit the raw event itself.
+
+                Note 2: We have to set hasFocused ourselves and use it to
+                display error messages and change border colors accordingly.
             -->
             <input
                 class="input"
-                :class="{ invalid: hasError }"
+                :class="{ invalid: hasFocused && hasError }"
                 v-bind="$attrs"
                 v-on="{
                     ...$listeners,
                     input: e => $emit('input', e.target.value)
                 }"
+                @blur="hasFocused = true"
                 :value="value"
             />
             <slot name="messages">
-                <div class="red--text">{{ errorBucket[0] || '&nbsp;' }}</div>
+                <div class="red--text message">
+                    {{ (hasFocused && errorBucket[0]) || '&nbsp;' }}
+                </div>
             </slot>
         </span>
     </div>
@@ -52,15 +58,15 @@ export default {
         value: String,
         // We want to display a label
         label: String
-    },
-
-    data() {
-        return {}
     }
 }
 </script>
 
 <style scoped>
+.message {
+    margin-left: 6px;
+}
+
 .label {
     position: absolute;
     padding: 4px 6px;

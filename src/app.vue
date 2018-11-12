@@ -1,8 +1,8 @@
 <template>
     <v-app>
         <v-content>
-            <v-container Xfluid grid-list-lg>
-                <v-form v-model="testValid" style="width: 300px;">
+            <v-container fluid grid-list-lg>
+                <v-form v-model="formValid" style="width: 400px;">
                     <v-layout column>
                         <v-flex>
                             <data-import
@@ -29,14 +29,14 @@
                         </v-flex>
 
                         <v-flex>
-                            <v-btn color="primary" :disabled="!testValid"
+                            <v-btn color="primary" :disabled="!formValid"
                                 >OK
                             </v-btn>
                         </v-flex>
 
                         <!--
                                                     <v-flex xs-2>
-                                                        <pre>test valid: {{ testValid }}</pre>
+                                                        <pre>test valid: {{ formValid }}</pre>
                                                         <pre>data-import valid: {{ wrapValid }}</pre>
                                                         <pre>data: {{ wrapData }}</pre>
                                                         <pre v-if="$refs.wrap">
@@ -65,8 +65,8 @@ export default {
 
     data() {
         return {
-            comment: 'None yet',
-            testValid: false,
+            comment: '',
+            formValid: false,
             wrapValid: false,
             wrapData: {}
         }

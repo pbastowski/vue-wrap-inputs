@@ -16,22 +16,28 @@
         native controls emit the event itself.
     -->
     <div>
-        <label class="mr-2" style="vertical-align: top;"> {{ label }} </label>
+        <label class="mr-2 label" style="vertical-align: top;">
+            {{ label }}
+        </label>
         <span style="display:inline-block;">
             <input
                 class="input"
-                :class="{ invalid: hasError }"
+                :class="{ invalid: isDirty && hasError }"
                 v-bind="$attrs"
                 v-on="{
                     ...$listeners,
                     input: e => $emit('input', e.target.value)
                 }"
                 :value="value"
+                @blur="dirty = true"
             />
             <slot name="messages">
-                <div class="red--text">{{ errorBucket[0] || '&nbsp;' }}</div>
+                <div class="red--text message">
+                    {{ (isDirty && errorBucket[0]) || '&nbsp;' }}
+                </div>
             </slot>
         </span>
+        <pre>isDirty: {{ isDirty }}</pre>
     </div>
 </template>
 
@@ -55,10 +61,22 @@ export default {
     },
 
     data() {
-        return {}
+        return {
+            dirty: false
+        }
+    },
+
+    watch: {
+        value() {
+            this.dirty = true
+        }
     },
 
     computed: {
+        isDirty() {
+            return this.dirty
+        },
+
         hasError() {
             return this.rules.some(r => typeof r(this.value) === 'string')
         },
@@ -71,11 +89,24 @@ export default {
 </script>
 
 <style scoped>
+.message {
+    margin-left: 6px;
+}
+
+.label {
+    position: absolute;
+    padding: 4px 6px;
+    font-size: 12px;
+    color: grey;
+}
+
 .input {
     outline: none;
     border: 1px solid silver;
     color: black;
-    padding: 3px 6px;
+    padding: 20px 6px 3px;
+    height: 52px;
+    font-size: 16px;
 }
 
 .invalid {
