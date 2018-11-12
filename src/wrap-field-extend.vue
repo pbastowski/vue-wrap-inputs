@@ -4,7 +4,7 @@
 -->
 
 <template>
-    <div style="border: 2px dashed;">
+    <div>
         <label class="mr-2 label" style="vertical-align: top;">
             {{ label }}
         </label>
