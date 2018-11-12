@@ -16,7 +16,14 @@
         native controls emit the event itself.
     -->
     <div>
-        <label class="mr-2 label" style="vertical-align: top;">
+        <label
+            class="mr-2 label"
+            style="vertical-align: top;"
+            :class="{
+                'red--text': dirty && hasError,
+                placeholder: !isFocused && value === ''
+            }"
+        >
             {{ label }}
         </label>
         <span style="display:inline-block;">
@@ -29,13 +36,15 @@
                     input: e => $emit('input', e.target.value)
                 }"
                 :value="value"
-                @blur="dirty = true"
+                @blur="
+                    dirty = true
+                    isFocused = false
+                "
+                @focus="isFocused = true"
             />
-            <slot name="messages">
-                <div class="red--text message">
-                    {{ (isDirty && errorBucket[0]) || '&nbsp;' }}
-                </div>
-            </slot>
+            <div class="red--text message">
+                {{ (isDirty && errorBucket[0]) || '&nbsp;' }}
+            </div>
         </span>
         <pre>isDirty: {{ isDirty }}</pre>
     </div>
@@ -62,7 +71,8 @@ export default {
 
     data() {
         return {
-            dirty: false
+            dirty: false,
+            isFocused: false
         }
     },
 
@@ -94,10 +104,16 @@ export default {
 }
 
 .label {
+    transition: all 0.25s;
     position: absolute;
     padding: 4px 6px;
     font-size: 12px;
     color: grey;
+}
+
+.placeholder {
+    font-size: 16px;
+    padding-top: 20px;
 }
 
 .input {

@@ -43,11 +43,9 @@
                 @focus="isFocused = true"
                 :value="value"
             />
-            <slot name="messages">
-                <div class="red--text message">
-                    {{ (hasFocused && errorBucket[0]) || '&nbsp;' }}
-                </div>
-            </slot>
+            <div class="red--text message">
+                {{ ((hasFocused || isDirty) && errorBucket[0]) || '&nbsp;' }}
+            </div>
         </span>
     </div>
 </template>
